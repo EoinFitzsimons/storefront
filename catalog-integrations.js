@@ -1,11 +1,18 @@
 (function (root, factory) {
-  const adapters = factory(root.GuidanceEngine);
+  const adapters = factory(root.GuidanceEngine, root);
   if (typeof module === "object" && module.exports) module.exports = adapters;
   root.CatalogIntegrations = adapters;
-}(globalThis, function (engine) {
+}(globalThis, function (engine, host) {
   "use strict";
 
   const TENANT_ID_PATTERN = /^[a-z0-9][a-z0-9_-]*$/;
+
+  function bundledTenantConfiguration(tenantId) {
+    const bundled = host.EmbeddedTenantConfigs;
+    if (!bundled || typeof bundled !== "object") return undefined;
+    const config = bundled[tenantId];
+    return config && typeof config === "object" ? structuredClone(config) : undefined;
+  }
 
   async function readJson(response, description) {
     if (!response.ok) throw new Error(`${description} request failed (${response.status})`);
@@ -18,6 +25,11 @@
 
   async function loadTenantConfiguration(tenantId, fetchImpl = fetch, baseUrl) {
     if (!TENANT_ID_PATTERN.test(tenantId)) throw new Error("Tenant ID must contain only lowercase letters, numbers, underscores, and hyphens");
+    const bundled = bundledTenantConfiguration(tenantId);
+    if (bundled) {
+      engine.validateConfiguration(bundled);
+      return bundled;
+    }
     const base = baseUrl || (typeof document === "undefined" ? undefined : document.baseURI);
     if (!base) throw new Error("A base URL is required to load tenant configuration outside a browser");
     const url = new URL(`config/tenants/${tenantId}.v1.json`, base);

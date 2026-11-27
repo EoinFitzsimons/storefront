@@ -22,6 +22,21 @@ test("tenant loader requests the versioned config and validates its tenant ident
   assert.equal(loaded.tenant.id, "oak-clay");
 });
 
+test("tenant loader uses a bundled configuration without making a request", async () => {
+  const previous = global.EmbeddedTenantConfigs;
+  global.EmbeddedTenantConfigs = { spirit: spiritConfig };
+  try {
+    const loaded = await integrations.loadTenantConfiguration("spirit", async () => {
+      throw new Error("bundled configuration should avoid fetching");
+    }, "file:///storefront/index.html");
+    assert.equal(loaded.tenant.id, "spirit");
+    assert.notEqual(loaded, spiritConfig);
+  } finally {
+    if (previous === undefined) delete global.EmbeddedTenantConfigs;
+    else global.EmbeddedTenantConfigs = previous;
+  }
+});
+
 test("tenant loader rejects unsafe identifiers and mismatched configuration IDs", async () => {
   await assert.rejects(() => integrations.loadTenantConfiguration("../spirit", async () => {
     throw new Error("should not fetch");

@@ -11,19 +11,27 @@ This remains a prototype, not a hosted multi-tenant SaaS product. It has no auth
 
 ## Run locally
 
-The browser fetches tenant configuration and may fetch an HTTP catalogue, so serve the files over HTTP rather than opening `index.html` directly:
+Open `index.html` directly for the included Spirit experience. The supplied tenant configurations are bundled into `config/tenant-configs.js`, so the discovery flow works without a local server.
+
+Use a local HTTP server when testing a tenant configured with an HTTP catalogue:
 
 ```sh
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000/` for Spirit or `http://localhost:8000/?tenant=oak-clay` for Oak & Clay. Tenant IDs are restricted to lowercase letters, digits, underscores, and hyphens before they are used to select a configuration file.
+Open `http://localhost:8000/` for Spirit or `http://localhost:8000/?tenant=oak-clay` for Oak & Clay. The same tenant query works when opening `index.html` directly. Tenant IDs are restricted to lowercase letters, digits, underscores, and hyphens before they are selected from the bundled configuration.
 
 No compile step or third-party JavaScript dependency is required. Node.js 18+ is used for the built-in test runner and configuration checks:
 
 ```sh
 npm test
 npm run validate:configs
+```
+
+After editing a tenant JSON file, refresh the browser bundle:
+
+```sh
+npm run build:configs
 ```
 
 ## Architecture
