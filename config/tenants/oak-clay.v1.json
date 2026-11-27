@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "revision": "1.0.0",
+  "tenant": {
+    "id": "oak-clay",
+    "name": "Oak & Clay"
+  },
+  "theme": {
+    "primary": "#315947",
+    "accent": "#aa684d"
+  },
+  "content": {
+    "pageTitle": "Oak & Clay — Find Your Next Piece",
+    "heroHeading": "Find something made for you.",
+    "heroIntro": "Answer a few questions to explore pottery, workshops, and thoughtful gifts from Oak & Clay.",
+    "beginLabel": "Explore the collection",
+    "journeyTitle": "What are you looking for?",
+    "journeyIntro": "Tell us a little about what you have in mind. You can skip any optional question.",
+    "privacyNote": "Your answers stay in this page and aren’t saved.",
+    "resultNote": "Demo products only. Connect a live catalogue and checkout before taking orders.",
+    "recommendationTitle": "A few ideas for you.",
+    "recommendationMessage": "These demo suggestions reflect the preferences you selected.",
+    "noMatchTitle": "We couldn’t find a close match.",
+    "noMatchMessage": "Try a different choice or browse the full collection."
+  },
+  "questions": [
+    {
+      "id": "interest",
+      "title": "What would you like to explore?",
+      "required": true,
+      "options": [
+        { "id": "wheel", "label": "A pottery wheel workshop", "tags": ["interest:workshop"], "tone": "calm" },
+        { "id": "ready_made", "label": "Ready-made pottery", "tags": ["interest:pottery"], "tone": "warm" },
+        { "id": "gift", "label": "A gift for someone", "tags": ["interest:gift"], "tone": "curious" }
+      ]
+    },
+    {
+      "id": "format",
+      "title": "What kind of experience suits you?",
+      "required": false,
+      "options": [
+        { "id": "hands_on", "label": "Make something myself", "tags": ["format:in_person"], "tone": "calm" },
+        { "id": "browse", "label": "Choose something already made", "tags": ["format:ready_made"], "tone": "warm" },
+        { "id": "either", "label": "I’m open to either", "tags": [], "tone": "open" }
+      ]
+    },
+    {
+      "id": "price",
+      "title": "What price range should we keep in mind?",
+      "required": false,
+      "options": [
+        { "id": "accessible", "label": "Lower-cost options", "tags": ["price:accessible"], "tone": "grounded" },
+        { "id": "considered", "label": "A special, considered piece or experience", "tags": ["price:considered"], "tone": "warm" },
+        { "id": "any", "label": "Show me what fits best", "tags": [], "tone": "open" }
+      ]
+    }
+  ],
+  "routing": {
+    "defaultNext": {
+      "interest": "format",
+      "format": "price",
+      "price": "results"
+    },
+    "rules": [
+      { "when": { "questionId": "interest", "answerId": "gift" }, "next": "price" }
+    ]
+  },
+  "policies": {
+    "scoring": {
+      "limit": 2,
+      "weights": {
+        "interest": 5,
+        "format": 3,
+        "price": 1
+      }
+    },
+    "blockedAnswers": [],
+    "exclusions": []
+  },
+  "catalog": {
+    "provider": { "type": "embedded" },
+    "products": [
+      {
+        "id": "wheel-workshop",
+        "name": "Pottery wheel workshop",
+        "description": "A beginner-friendly studio session to learn the basics of wheel throwing.",
+        "planTitle": "Try the wheel",
+        "plan": ["Choose a session time", "Meet your studio instructor", "Make and finish a small piece"],
+        "capabilities": ["workshop", "in_person"],
+        "tags": ["interest:workshop", "format:in_person", "price:accessible"]
+      },
+      {
+        "id": "ceramic-vase",
+        "name": "Hand-thrown ceramic vase",
+        "description": "A one-of-a-kind vase made in the Oak & Clay studio.",
+        "planTitle": "Find a piece",
+        "plan": ["Browse the available glazes", "Choose a vase for your space", "Arrange collection or delivery"],
+        "capabilities": ["pottery", "ready_made"],
+        "tags": ["interest:pottery", "format:ready_made", "price:considered"]
+      },
+      {
+        "id": "gift-card",
+        "name": "Oak & Clay gift card",
+        "description": "A flexible gift card to use on pottery or a studio experience.",
+        "planTitle": "Give them a choice",
+        "plan": ["Choose a gift amount", "Add a personal note", "Send the gift card"],
+        "capabilities": ["gift"],
+        "tags": ["interest:gift", "price:accessible"]
+      }
+    ]
+  }
+}

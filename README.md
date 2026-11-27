@@ -1,28 +1,58 @@
-# Spirit Discovery Experience
+# Guided Storefront
 
-Spirit is a responsive storefront prototype for a guided customer-discovery journey. It demonstrates how a short sequence of conversational questions can help someone reflect on what they want and explore potentially relevant experiences. The current version is designed around the Spirit brand and wellbeing/spirituality catalogue; it is a proof of concept, not a configurable product recommendation platform.
+A small, build-free prototype of a guided customer-discovery and product-recommendation system. The same presentation and guidance engine can run different businesses by loading a tenant's versioned questions, routes, eligibility rules, product attributes, recommendation policy, and brand copy.
 
-## What the experience does
+The included tenants are:
 
-- Guides visitors through nine questions, with progress feedback, back navigation, optional skips, and a restartable results view.
-- Uses selected answers to score a small, hard-coded example catalogue and show up to two illustrative suggestions with sample plans.
-- Respects selected preferences, including a non-spiritual path, and avoids suggesting therapy because the prototype has no verified therapy service to recommend.
-- Presents a responsive, celestial visual design and keyboard-accessible controls for the core journey.
+- `spirit`: wellbeing and reflective experiences, including a therapy eligibility boundary.
+- `oak-clay`: pottery, studio workshops, and gift cards, with a different question path and catalogue.
 
-## How recommendations work
-
-Questions, answer tags, product records, eligibility exclusions, and match weights are defined directly in `script.js`. The current matcher compares mapped answer tags with product tags, ranks eligible examples, and displays a short explanation. This is intentionally a small demonstration: it has no live catalogue, product availability, pricing, booking links, or business-specific configuration. Not every question currently changes the recommendation results.
+This remains a prototype, not a hosted multi-tenant SaaS product. It has no authentication, tenant administration UI, database, analytics, inventory guarantees, or payment processing.
 
 ## Run locally
 
-Open `index.html` in a modern browser. No install or build step is needed. Google Fonts are requested over the network; system font fallbacks are provided.
+The browser fetches tenant configuration and may fetch an HTTP catalogue, so serve the files over HTTP rather than opening `index.html` directly:
 
-## Prototype and privacy notes
+```sh
+python3 -m http.server 8000
+```
 
-This is a front-end-only prototype. Answers are held in page memory while the journey is open and are not saved or sent to an application backend. The example products and plans are not verified or bookable offers; confirm availability, price, suitability, and provider credentials before relying on any real-world recommendation. The prototype does not provide therapy or assess clinical needs.
+Open `http://localhost:8000/` for Spirit or `http://localhost:8000/?tenant=oak-clay` for Oak & Clay. Tenant IDs are restricted to lowercase letters, digits, underscores, and hyphens before they are used to select a configuration file.
 
-The visual direction uses a celestial palette and moon/circle motifs. Komet and PF Marlet Display were named in the supplied brand guide but are not bundled here, so available font fallbacks are used.
+No compile step or third-party JavaScript dependency is required. Node.js 18+ is used for the built-in test runner and configuration checks:
 
-## Extending beyond this demo
+```sh
+npm test
+npm run validate:configs
+```
 
-The journey is currently tailored to one brand and its example catalogue. Reusing it for other businesses would require separating question flows, routing and eligibility rules, product data, and recommendation policies from the presentation code, then adding validation and automated tests for each business configuration. Production use would also require appropriate catalogue and booking integrations, privacy review, and monitoring of recommendation quality.
+## Architecture
+
+- `script.js` owns DOM rendering, navigation, and result presentation. It reads content and theme settings from the active tenant instead of defining business rules.
+- `guidance-engine.js` is a pure, DOM-independent module for configuration validation, conditional path traversal, eligibility, scoring, and ranking. It runs in the browser and under Node tests.
+- `catalog-integrations.js` loads a tenant's versioned config and products. It supports embedded demo products or an HTTP JSON catalogue.
+- `config/tenant-config.v1.schema.json` describes the version 1 configuration contract. Tenant files in `config/tenants/` carry both `schemaVersion` and a semver `revision`; make a new schema version for incompatible shape changes and increment a tenant revision when its content or policy changes.
+- `tests/` covers tenant validation, routing, recommendation outcomes, capability exclusions, and catalogue loading/failure cases.
+
+Tenant data stays separate from presentation code. Questions declare answer tags, routes declare defaults and conditional next steps, and policies declare scoring weights, result limits, blocked answers, and capability exclusions. Product tags determine relevance; capabilities express hard eligibility constraints. The engine returns an explicit `recommended`, `no_match`, or `blocked` result and does not invent a fallback recommendation.
+
+## Catalogue and checkout integrations
+
+For a live catalogue, set a tenant's `catalog.provider` to:
+
+```json
+{
+  "type": "http",
+  "url": "https://catalog.example.test/api/products"
+}
+```
+
+The endpoint must return either a product array or an object with a `products` array. Every product must include `id`, `name`, `description`, `planTitle`, `plan`, `capabilities`, and namespaced `tags`; optional `checkoutUrl` values must be absolute HTTP(S) URLs. Invalid data and failed requests are surfaced as errors rather than silently replaced with demo content. The demo tenant files use embedded catalogues.
+
+The checkout integration is intentionally a link seam only: a validated `checkoutUrl` renders a “View offer” link. It does not create orders or verify live price or availability. Production deployments should put authenticated/private catalogue access behind a server-side integration, avoid exposing credentials in tenant JSON, and connect checkout to the business's own transaction and availability systems.
+
+## Privacy and recommendation safety
+
+Answers stay in page memory and are not persisted by this prototype. The Spirit tenant blocks therapy-seeking answers because its sample catalogue contains no verified therapy service, and excludes products with capabilities incompatible with selected spiritual preferences. These are configuration-level examples, not clinical advice or a substitute for validating real providers and offers.
+
+Google Fonts are requested over the network; system font fallbacks are provided.

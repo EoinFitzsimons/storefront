@@ -1,0 +1,12 @@
+{
+  "name": "guided-storefront-prototype",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate:configs": "node scripts/validate-configs.js"
+  }
+}
