@@ -3,33 +3,62 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4e9e7">
-  <meta name="description" content="Take a deep breath. A gentle self-discovery journey from My Moon & Stars to find clarity, insight, and your next small step.">
-  <title>Take a Deep Breath — My Moon & Stars</title>
+  <meta name="theme-color" content="#213063">
+  <meta name="description" content="Spirit is a gentle discovery experience to explore what kind of support might feel right for you.">
+  <title>Spirit — Find Your Way</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="https://mymoonandstars.ie/"><span class="brand-mark">☾</span> Moon <small>& Stars</small></a><a href="https://mymoonandstars.ie/" class="nav-link">Visit My Moon & Stars ↗</a></header>
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy"><span class="eyebrow"><span class="sun-dot"></span> A GENTLE SELF-DISCOVERY JOURNEY</span><h1>Take a deep breath…<br><em>and find your way.</em></h1><p class="intro">A quiet moment to listen inward, explore what’s on your mind, and find a grounded next step that feels like yours.</p><button class="primary-button" id="begin">Find your starting point <span aria-hidden="true">→</span></button><p class="note">Move at your own pace. Take what resonates.</p></div>
-      <div class="hero-art" aria-label="A luminous moon above a soft, abstract sky" role="img"><div class="orb-glow"></div><div class="moon-orb"><span>Take a deep breath…</span><small>Find clarity. Insight. Empowerment.</small></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="spark spark-one">✦</span><span class="spark spark-two">✧</span></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Spirit home"><span class="brand-moon" aria-hidden="true">◐</span><span class="brand-name">spirit</span></a>
+    <button class="nav-link" id="journey-link" type="button">Your journey <span aria-hidden="true">↓</span></button>
+  </header>
+  <main>
+    <section class="hero" id="top">
+      <div class="sky" aria-hidden="true"><span class="star s1">✦</span><span class="star s2">·</span><span class="star s3">✧</span><span class="star s4">·</span><span class="star s5">✦</span><span class="planet p1"></span><span class="planet p2"></span><div class="hero-moon"><span>☾</span></div><div class="horizon"></div></div>
+      <div class="hero-copy"><span class="eyebrow"><span class="eyebrow-dot"></span> A MOMENT TO CHECK IN WITH YOURSELF</span>
+        <h1>Take a deep breath.<br><em>Find your way.</em></h1>
+        <p class="intro">A gentle, guided moment to pause, explore what’s on your mind, and discover what kind of support could feel right for you.</p>
+        <button class="primary-button" id="begin">Begin your journey <span aria-hidden="true">→</span></button>
+        <p class="reassurance"><span>✧</span> Curious about spirituality or simply looking for a little space to reflect? You’re welcome here.</p>
+      </div>
+      <button class="scroll-cue" id="journey-cue" type="button"><span></span> A LITTLE SPACE FOR YOU</button>
     </section>
-    <section class="journey" id="journey" aria-live="polite"><div class="journey-inner"><div class="step-label"><span>01</span> &nbsp; A MOMENT FOR YOU</div><h2>What’s been taking up<br>space in your mind?</h2><p class="journey-hint">Choose the one that feels closest. There’s no wrong answer.</p>
-      <div class="choices" role="group" aria-label="Choose what feels most present">
-        <button class="choice" data-key="direction"><span class="choice-icon">⌁</span><span><strong>I’m at a crossroads</strong><small>I’m not sure which way to go</small></span><span class="choice-arrow">→</span></button>
-        <button class="choice" data-key="connection"><span class="choice-icon">♡</span><span><strong>I feel a little disconnected</strong><small>From myself, or the people around me</small></span><span class="choice-arrow">→</span></button>
-        <button class="choice" data-key="rest"><span class="choice-icon">☾</span><span><strong>I need a moment to breathe</strong><small>Everything feels like a lot right now</small></span><span class="choice-arrow">→</span></button>
-        <button class="choice" data-key="curiosity"><span class="choice-icon">✳</span><span><strong>I’m curious about who I’m becoming</strong><small>Something in me is ready to explore</small></span><span class="choice-arrow">→</span></button>
-      </div><p class="privacy-note">Your answers stay here in your browser. This is a reflective experience, not professional advice.</p>
-    </div></section>
-    <section class="result" id="result" hidden aria-live="polite"><div class="result-inner"><div class="step-label"><span>02</span> &nbsp; YOUR SMALL BEGINNING</div><div class="result-icon" id="result-icon">✧</div><p class="result-kicker">A THOUGHT TO CARRY WITH YOU</p><h2 id="result-title"></h2><p id="result-body" class="result-body"></p><div class="reflection"><span>✦</span><div><strong>A gentle prompt</strong><p id="result-prompt"></p></div></div><button class="secondary-button" id="restart">← Start again</button></div></section>
-    <section class="about" id="about"><div class="about-star">☾</div><div><span class="eyebrow">A NOTE FROM MY MOON & STARS</span><h2>Insight, with both feet on the ground.</h2><p>This reflection is a starting point for self-discovery—not a prediction or a substitute for personal support. Explore coaching, therapeutic methods, astrology, tarot, and aroma diagnostics at your own pace.</p><a class="service-link" href="https://mymoonandstars.ie/">Explore My Moon & Stars services ↗</a></div><span class="about-flower" aria-hidden="true">✧</span></section>
+
+    <section class="journey" id="journey" aria-labelledby="journey-title" hidden>
+      <div class="journey-landscape" id="journey-landscape" data-tone="open" aria-hidden="true">
+        <span class="landscape-star ls-one">✦</span><span class="landscape-star ls-two">✧</span><span class="landscape-star ls-three">·</span><span class="landscape-star ls-four">✦</span>
+        <div class="landscape-moon"></div><div class="landscape-glow"></div>
+        <div class="land-ridge ridge-far"></div><div class="land-ridge ridge-mid"></div><div class="land-ridge ridge-near"></div>
+        <svg class="landscape-route" viewBox="0 0 1000 280" preserveAspectRatio="none"><path id="route-track" pathLength="100" d="M0 220 C110 218 145 160 235 170 S355 245 435 210 S565 105 650 130 S790 225 860 170 S945 82 1000 98"/><path class="route-guide" d="M0 220 C110 218 145 160 235 170 S355 245 435 210 S565 105 650 130 S790 225 860 170 S945 82 1000 98"/></svg>
+        <span class="landscape-beacon" id="landscape-beacon"></span>
+        <span class="landscape-caption" id="landscape-caption">THE PATH UNFOLDS AS YOU EXPLORE</span>
+      </div>
+      <div class="journey-wrap">
+        <div class="progress" id="progress" aria-label="Discovery journey progress"></div>
+        <div class="journey-heading"><span class="eyebrow" id="question-step">A TWO-MINUTE CHECK-IN</span><h2 id="journey-title">Find an experience that <em>feels right.</em></h2><p id="journey-intro">A few quick questions can help narrow the options—whether you’re after something calming, reflective, or more spiritual. No beliefs or previous experience needed.</p></div>
+        <div class="discovery-card" id="discovery-card">
+          <div class="card-orbit" aria-hidden="true"><span>✧</span></div>
+          <span class="card-step" id="question-counter">START WHERE YOU ARE</span>
+          <h3 id="question-title">Do you know what you’d like to explore?</h3>
+          <p class="question-helper" id="question-helper">There’s no right answer. Choose what feels closest.</p>
+          <div class="answer-options" id="answer-options" role="group" aria-label="Answer choices"></div>
+          <div class="integration-note" id="integration-note"><span>✦</span><span><strong>Your privacy matters</strong><small>We don’t ask for health details or contact information. Your answers stay in this page and aren’t saved.</small></span></div>
+          <div class="quiz-controls"><button class="text-link" id="back-button" type="button" hidden>← Back</button><button class="skip-button" id="skip-button" type="button" hidden>Skip this question</button></div>
+        </div>
+      </div>
+    </section>
+    <section class="result-section" id="result-section" hidden aria-live="polite">
+      <div class="result-card"><span class="result-symbol">✧</span><span class="eyebrow">YOUR DISCOVERY</span><h2 id="result-title">A direction to explore</h2><p id="result-summary" class="result-summary"></p><p id="result-message"></p><div id="results-list" class="results-list"></div><p class="result-note">Prototype suggestions use the supplied catalogue details. Confirm current availability and suitability before booking. Your answers stay in this page and aren’t saved.</p><button class="secondary-button" id="restart-button" type="button">Explore another path</button></div>
+    </section>
+    <section class="closing"><span class="closing-moon" aria-hidden="true">☾</span><p>Clarity can begin with a single moment.</p></section>
   </main>
-  <footer><a class="brand" href="https://mymoonandstars.ie/"><span class="brand-mark">☾</span> Moon <small>& Stars</small></a><span>A moment for clarity and self-discovery.</span></footer>
+  <footer><a class="brand footer-brand" href="#top"><span class="brand-moon" aria-hidden="true">◐</span><span class="brand-name">spirit</span></a><span>A gentle invitation to explore.</span></footer>
   <script src="script.js"></script>
 </body>
 </html>
+
+
