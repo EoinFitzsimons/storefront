@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#315947">
+  <meta name="description" content="A sample shop for the Guided Commerce browser extension.">
+  <title>Sample shop — Guided Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/storefront.css">
+  <script type="application/ld+json" id="store-catalog-jsonld">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[]}</script>
+</head>
+<body>
+  <header class="topbar">
+  <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">○</span><span id="merchant-name">Sample shop</span></a>
+  <nav aria-label="Main navigation"><a href="/?tenant=oak-clay" id="shop-page-link">Shop</a><a href="/about.html?tenant=oak-clay" id="about-page-link">About</a></nav>
+  <label class="tenant-picker" for="tenant-switcher"><span>Example</span><select id="tenant-switcher"><option value="oak-clay">Oak &amp; Clay</option><option value="spirit">Spirit</option></select></label>
+</header>
+  <main>
+    <section class="hero" id="top">
+  <div class="hero-copy"><span class="eyebrow">A SAMPLE MERCHANT SITE</span><h1 id="hero-title">Find something made for you.</h1><p id="hero-intro">Explore a small sample catalogue. Open the Guided Commerce extension to get a hand choosing.</p><a class="button" href="#products">Explore the collection <span aria-hidden="true">→</span></a><p class="demo-note"><span aria-hidden="true">✳</span> Demonstration catalogue. Offers, prices, stock and checkout are not live.</p></div>
+  <div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="vessel vessel-one"></div><div class="vessel vessel-two"></div><div class="vessel vessel-three"></div><span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✧</span></div>
+</section>
+    <section class="collection" id="products" aria-labelledby="collection-title">
+  <div class="section-heading"><div><span class="eyebrow">THE COLLECTION</span><h2 id="collection-title">A few ways to begin</h2><p id="collection-intro">Browse the sample offers, or let the extension help you narrow them down.</p></div><span class="collection-count" id="product-count">0 offers</span></div>
+  <div class="product-grid" id="product-grid" aria-live="polite"></div>
+  <aside class="guide-callout"><span class="callout-mark" aria-hidden="true">↗</span><div><strong>Not sure which one fits?</strong><p>Open Guided Commerce from your browser toolbar. It can use the products and details on this page to build a short, private guide.</p></div></aside>
+</section>
+    <section class="about" id="about"><div class="about-inner"><span class="eyebrow">ABOUT THIS DEMO</span><h2 id="about-title">A small shop with room to explore.</h2><p id="about-copy">This sample storefront exists to give the extension real product pages to read. Its catalogue and copy are illustrative; there is no live stock or checkout.</p><p class="about-boundary"><strong>What the guide can know:</strong> details present on the pages you choose to analyze. <strong>What it cannot know:</strong> current availability, delivery, suitability or anything the merchant has not published.</p></div></section>
+  </main>
+  <footer><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">○</span><span id="footer-merchant-name">Sample shop</span></a><span>Sample site for the Guided Commerce extension</span></footer>
+  <script src="/examples/storefronts/tenant-configs.js"></script>
+  <script src="/src/storefront.js"></script>
+</body>
+</html>

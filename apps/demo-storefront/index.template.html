@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#315947">
+  <meta name="description" content="A sample shop for the Guided Commerce browser extension.">
+  <title>Sample shop — Guided Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/storefront.css">
+  <script type="application/ld+json" id="store-catalog-jsonld">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[]}</script>
+</head>
+<body>
+  @@storefront-header@@
+  <main>
+    @@storefront-hero@@
+    @@product-grid@@
+    @@about-section@@
+  </main>
+  @@storefront-footer@@
+  <script src="/examples/storefronts/tenant-configs.js"></script>
+  <script src="/src/storefront.js"></script>
+</body>
+</html>

@@ -34,6 +34,10 @@
         assert(Array.isArray(product[key]) && product[key].every((value) => typeof value === "string"), `${itemPath}.${key} must be a string array`);
       });
       assert(product.tags.every((tag) => /^[a-z][a-z0-9_-]*:[a-z0-9_-]+$/.test(tag)), `${itemPath}.tags must be namespaced strings`);
+      if (product.attributes !== undefined) {
+        assert(isRecord(product.attributes), `${itemPath}.attributes must be an object`);
+        assert(Object.entries(product.attributes).every(([key, value]) => key.trim() && typeof value === "string" && value.trim()), `${itemPath}.attributes must contain non-empty text`);
+      }
       if (product.checkoutUrl !== undefined) {
         let url;
         try {

@@ -4,16 +4,16 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
-const engine = require("../guidance-engine.js");
+const engine = require("../packages/guidance-core/src/guidance-engine.js");
 
-const tenantDirectory = path.join(__dirname, "..", "config", "tenants");
-const loadTenant = (id) => JSON.parse(fs.readFileSync(path.join(tenantDirectory, `${id}.v1.json`), "utf8"));
+const tenantDirectory = path.join(__dirname, "..", "examples", "storefronts");
+const loadTenant = (id) => JSON.parse(fs.readFileSync(path.join(tenantDirectory, id, "tenant.v1.json"), "utf8"));
 const spirit = loadTenant("spirit");
 const oakClay = loadTenant("oak-clay");
 
 test("all checked-in tenant configuration files validate against the runtime contract", () => {
-  for (const file of fs.readdirSync(tenantDirectory).filter((name) => name.endsWith(".v1.json"))) {
-    assert.doesNotThrow(() => engine.validateConfiguration(loadTenant(file.slice(0, -".v1.json".length))));
+  for (const dir of fs.readdirSync(tenantDirectory).filter((name) => fs.existsSync(path.join(tenantDirectory, name, "tenant.v1.json")))) {
+    assert.doesNotThrow(() => engine.validateConfiguration(loadTenant(dir)));
   }
 });
 

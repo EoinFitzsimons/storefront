@@ -5,6 +5,14 @@
   const integrations = window.CatalogIntegrations;
   const params = new URLSearchParams(window.location.search);
   const tenantId = params.get("tenant") || "spirit";
+  const tenantSwitcher = document.querySelector("#tenant-switcher");
+
+  tenantSwitcher.value = tenantId;
+  tenantSwitcher.addEventListener("change", () => {
+    const destination = new URL(window.location.href);
+    destination.searchParams.set("tenant", tenantSwitcher.value);
+    window.location.assign(destination);
+  });
 
   try {
     const config = await integrations.loadTenantConfiguration(tenantId);

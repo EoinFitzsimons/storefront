@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Guided Commerce",
+  "version": "0.1.1",
+  "description": "A private, page-by-page guide to choosing products and services.",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "scripting", "sidePanel"],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open Guided Commerce"
+  },
+  "side_panel": {
+    "default_path": "panel/index.html"
+  }
+}

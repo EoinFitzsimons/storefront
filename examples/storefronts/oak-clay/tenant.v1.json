@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": "1.0.0",
+  "revision": "1.1.0",
   "tenant": {
     "id": "oak-clay",
     "name": "Oak & Clay"
@@ -87,7 +87,8 @@
         "planTitle": "Try the wheel",
         "plan": ["Choose a session time", "Meet your studio instructor", "Make and finish a small piece"],
         "capabilities": ["workshop", "in_person"],
-        "tags": ["interest:workshop", "format:in_person", "price:accessible"]
+        "tags": ["interest:workshop", "format:in_person", "price:accessible"],
+        "attributes": { "outcome": "Learn a hands-on skill", "format": "In the studio", "price band": "Lower-cost" }
       },
       {
         "id": "ceramic-vase",
@@ -96,7 +97,8 @@
         "planTitle": "Find a piece",
         "plan": ["Browse the available glazes", "Choose a vase for your space", "Arrange collection or delivery"],
         "capabilities": ["pottery", "ready_made"],
-        "tags": ["interest:pottery", "format:ready_made", "price:considered"]
+        "tags": ["interest:pottery", "format:ready_made", "price:considered"],
+        "attributes": { "outcome": "Find a finished piece for your home", "format": "Ready-made pottery", "price band": "Considered" }
       },
       {
         "id": "gift-card",
@@ -105,7 +107,8 @@
         "planTitle": "Give them a choice",
         "plan": ["Choose a gift amount", "Add a personal note", "Send the gift card"],
         "capabilities": ["gift"],
-        "tags": ["interest:gift", "price:accessible"]
+        "tags": ["interest:gift", "price:accessible"],
+        "attributes": { "outcome": "Give someone a flexible choice", "format": "Gift card", "price band": "Lower-cost" }
       }
     ]
   }

@@ -1,66 +1,58 @@
-# Guided Storefront
+# Guided Commerce
 
-A small, build-free prototype of a guided customer-discovery and product-recommendation system. The same presentation and guidance engine can run different businesses by loading a tenant's versioned questions, routes, eligibility rules, product attributes, recommendation policy, and brand copy.
+Guided Commerce helps someone who knows the outcome they want, but not which product or service to choose. The first product surface is a Chromium browser extension: customers open it when they want help, review pages from one shop, answer a few questions based on the differences in that catalogue, and get an explained shortlist.
 
-The included tenants are:
+The sample shop is a fixture for the extension. Oak & Clay and Spirit are example merchant catalogues; they are not the product definition. The earlier embedded questionnaire is preserved at `/guided-experience.html` as a separate example.
 
-- `spirit`: wellbeing and reflective experiences, including a therapy eligibility boundary.
-- `oak-clay`: pottery, studio workshops, and gift cards, with a different question path and catalogue.
+## Try the demo
 
-This remains a prototype, not a hosted multi-tenant SaaS product. It has no authentication, tenant administration UI, database, analytics, inventory guarantees, or payment processing.
-
-## Run locally
-
-Open `index.html` directly for the included Spirit experience. The supplied tenant configurations are bundled into `config/tenant-configs.js`, so the discovery flow works without a local server.
-
-Use a local HTTP server when testing a tenant configured with an HTTP catalogue:
+Requires Node.js 18 or newer. From the repository root:
 
 ```sh
-python3 -m http.server 8000
+npm run build:storefront
+npm run build:examples
+npm run build:extension
+npm run dev
 ```
 
-Open `http://localhost:8000/` for Spirit or `http://localhost:8000/?tenant=oak-clay` for Oak & Clay. The same tenant query works when opening `index.html` directly. Tenant IDs are restricted to lowercase letters, digits, underscores, and hyphens before they are selected from the bundled configuration.
+Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) for the Oak & Clay sample shop. Use the example picker to switch to Spirit, or visit `/about.html?tenant=oak-clay` to see the separate About page. The local server only serves the demo site, example catalogue data, and shared guidance code needed by the preserved embedded example.
 
-No compile step or third-party JavaScript dependency is required. Node.js 18+ is used for the built-in test runner and configuration checks:
+## Load the extension
+
+1. In Chromium, open `chrome://extensions` and turn on **Developer mode**.
+2. Choose **Load unpacked** and select `extensions/chromium`.
+3. Open the local demo shop and click the Guided Commerce extension icon.
+4. Choose **Analyze this page**. To include the About page or another page from the same shop, navigate there and choose **Add this page to the guide**.
+5. Answer the short, locally generated questions and review the matching offers.
+
+The extension uses Manifest V3 and requests `activeTab`, `scripting`, and `sidePanel`. The toolbar action opens the panel through its click handler, granting temporary access to that tab; the panel reads it only after the customer chooses **Analyze this page**. It does not request access to all websites. Pages are added one at a time, limited to the same origin, and the collected data and answers remain in the panel's memory. Nothing is sent to a service. Page content is treated as untrusted text, not instructions. The programmatic `sidePanel.open()` action requires Chrome 116 or newer.
+
+The first site reader understands Product JSON-LD, basic Product microdata, and explicit product-card markers. It does not crawl links or claim facts the site does not publish. Unknown price and availability remain unknown. The sample catalogue intentionally has no live prices, inventory, booking availability, or checkout.
+
+## Project layout
+
+```text
+apps/demo-storefront/       Sample merchant site and its HTML partials
+extensions/chromium/        Chromium Manifest V3 extension and side panel
+packages/site-reader/       Page extraction, question generation, ranking
+packages/guidance-core/     Shared configuration and catalogue engine
+examples/storefronts/       Spirit and Oak & Clay example configuration
+scripts/                    Build and local demo server commands
+tests/                      Existing guidance-core and catalogue tests
+PRODUCT_PLAN.md              Product and architecture plan
+```
+
+`apps/demo-storefront/index.html` is generated from `index.template.html` and `partials/`. Edit the partials or template, then run `npm run build:storefront`. Tenant JSON files live at `examples/storefronts/<tenant>/tenant.v1.json`; after editing those, run `npm run build:examples` to refresh the browser bundle.
+
+## Commands
 
 ```sh
-npm test
+npm run dev
+npm run build:storefront
+npm run build:examples
+npm run build:extension
 npm run validate:configs
+npm test
 ```
 
-After editing a tenant JSON file, refresh the browser bundle:
-
-```sh
-npm run build:configs
-```
-
-## Architecture
-
-- `script.js` owns DOM rendering, navigation, and result presentation. It reads content and theme settings from the active tenant instead of defining business rules.
-- `guidance-engine.js` is a pure, DOM-independent module for configuration validation, conditional path traversal, eligibility, scoring, and ranking. It runs in the browser and under Node tests.
-- `catalog-integrations.js` loads a tenant's versioned config and products. It supports embedded demo products or an HTTP JSON catalogue.
-- `config/tenant-config.v1.schema.json` describes the version 1 configuration contract. Tenant files in `config/tenants/` carry both `schemaVersion` and a semver `revision`; make a new schema version for incompatible shape changes and increment a tenant revision when its content or policy changes.
-- `tests/` covers tenant validation, routing, recommendation outcomes, capability exclusions, and catalogue loading/failure cases.
-
-Tenant data stays separate from presentation code. Questions declare answer tags, routes declare defaults and conditional next steps, and policies declare scoring weights, result limits, blocked answers, and capability exclusions. Product tags determine relevance; capabilities express hard eligibility constraints. The engine returns an explicit `recommended`, `no_match`, or `blocked` result and does not invent a fallback recommendation.
-
-## Catalogue and checkout integrations
-
-For a live catalogue, set a tenant's `catalog.provider` to:
-
-```json
-{
-  "type": "http",
-  "url": "https://catalog.example.test/api/products"
-}
-```
-
-The endpoint must return either a product array or an object with a `products` array. Every product must include `id`, `name`, `description`, `planTitle`, `plan`, `capabilities`, and namespaced `tags`; optional `checkoutUrl` values must be absolute HTTP(S) URLs. Invalid data and failed requests are surfaced as errors rather than silently replaced with demo content. The demo tenant files use embedded catalogues.
-
-The checkout integration is intentionally a link seam only: a validated `checkoutUrl` renders a “View offer” link. It does not create orders or verify live price or availability. Production deployments should put authenticated/private catalogue access behind a server-side integration, avoid exposing credentials in tenant JSON, and connect checkout to the business's own transaction and availability systems.
-
-## Privacy and recommendation safety
-
-Answers stay in page memory and are not persisted by this prototype. The Spirit tenant blocks therapy-seeking answers because its sample catalogue contains no verified therapy service, and excludes products with capabilities incompatible with selected spiritual preferences. These are configuration-level examples, not clinical advice or a substitute for validating real providers and offers.
-
-Google Fonts are requested over the network; system font fallbacks are provided.
+`PRODUCT_PLAN.md` records the user-selected extension-first direction, trade-offs, permission boundary, prototype limitations, and later options for merchant integrations.

@@ -1,8 +1,8 @@
-/* Generated from config/tenants/*.v1.json. Run npm run build:configs after editing tenant JSON. */
+/* Generated from tenant.v1.json files under examples/storefronts. Run npm run build:examples after editing tenant JSON. */
 window.EmbeddedTenantConfigs = Object.freeze({
   "oak-clay": {
     "schemaVersion": 1,
-    "revision": "1.0.0",
+    "revision": "1.1.0",
     "tenant": {
       "id": "oak-clay",
       "name": "Oak & Clay"
@@ -167,7 +167,12 @@ window.EmbeddedTenantConfigs = Object.freeze({
             "interest:workshop",
             "format:in_person",
             "price:accessible"
-          ]
+          ],
+          "attributes": {
+            "outcome": "Learn a hands-on skill",
+            "format": "In the studio",
+            "price band": "Lower-cost"
+          }
         },
         {
           "id": "ceramic-vase",
@@ -187,7 +192,12 @@ window.EmbeddedTenantConfigs = Object.freeze({
             "interest:pottery",
             "format:ready_made",
             "price:considered"
-          ]
+          ],
+          "attributes": {
+            "outcome": "Find a finished piece for your home",
+            "format": "Ready-made pottery",
+            "price band": "Considered"
+          }
         },
         {
           "id": "gift-card",
@@ -205,14 +215,19 @@ window.EmbeddedTenantConfigs = Object.freeze({
           "tags": [
             "interest:gift",
             "price:accessible"
-          ]
+          ],
+          "attributes": {
+            "outcome": "Give someone a flexible choice",
+            "format": "Gift card",
+            "price band": "Lower-cost"
+          }
         }
       ]
     }
   },
   "spirit": {
     "schemaVersion": 1,
-    "revision": "1.0.0",
+    "revision": "1.1.0",
     "tenant": {
       "id": "spirit",
       "name": "Spirit"
@@ -768,7 +783,12 @@ window.EmbeddedTenantConfigs = Object.freeze({
             "format:in_person",
             "commitment:one_off",
             "commitment:short_series"
-          ]
+          ],
+          "attributes": {
+            "outcome": "Slow down and enjoy a sensory experience",
+            "format": "One-to-one",
+            "approach": "Grounded and sensory"
+          }
         },
         {
           "id": "example_tarot",
@@ -799,7 +819,12 @@ window.EmbeddedTenantConfigs = Object.freeze({
             "experience:structured_reflection",
             "format:one_to_one",
             "commitment:one_off"
-          ]
+          ],
+          "attributes": {
+            "outcome": "Explore a question through symbolic reflection",
+            "format": "One-to-one",
+            "approach": "Reflective and symbolic"
+          }
         },
         {
           "id": "example_astrology",
@@ -830,7 +855,12 @@ window.EmbeddedTenantConfigs = Object.freeze({
             "format:one_to_one",
             "format:online",
             "commitment:one_off"
-          ]
+          ],
+          "attributes": {
+            "outcome": "Explore patterns in a birth chart",
+            "format": "Online",
+            "approach": "Spiritual and symbolic"
+          }
         }
       ]
     }

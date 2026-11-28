@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": "1.0.0",
+  "revision": "1.1.0",
   "tenant": {
     "id": "spirit",
     "name": "Spirit"
@@ -193,7 +193,8 @@
         "planTitle": "Pause & reset",
         "plan": ["Check scent preferences and sensitivities with the practitioner", "Try a guided scent-based wellbeing experience", "Take a moment afterward to notice what felt calming"],
         "capabilities": ["scent_based_experience", "wellbeing_only"],
-        "tags": ["goal:calm", "need:everyday_stress", "need:relaxation", "outcome:relaxation", "approach:secular", "approach:reflective", "experience:sensory", "format:one_to_one", "format:in_person", "commitment:one_off", "commitment:short_series"]
+        "tags": ["goal:calm", "need:everyday_stress", "need:relaxation", "outcome:relaxation", "approach:secular", "approach:reflective", "experience:sensory", "format:one_to_one", "format:in_person", "commitment:one_off", "commitment:short_series"],
+        "attributes": { "outcome": "Slow down and enjoy a sensory experience", "format": "One-to-one", "approach": "Grounded and sensory" }
       },
       {
         "id": "example_tarot",
@@ -202,7 +203,8 @@
         "planTitle": "A question, a new angle",
         "plan": ["Choose one question, decision, or pattern to explore", "Use the cards as prompts for symbolic reflection", "Write down one perspective you want to carry forward"],
         "capabilities": ["divination_content", "symbolic_content"],
-        "tags": ["goal:clarity", "goal:self_understanding", "goal:curiosity", "need:life_transition", "need:reflective_exploration", "outcome:new_perspective", "outcome:personal_insight", "outcome:enjoyable_exploration", "approach:reflective", "approach:spiritual", "experience:symbolic_reflection", "experience:structured_reflection", "format:one_to_one", "commitment:one_off"]
+        "tags": ["goal:clarity", "goal:self_understanding", "goal:curiosity", "need:life_transition", "need:reflective_exploration", "outcome:new_perspective", "outcome:personal_insight", "outcome:enjoyable_exploration", "approach:reflective", "approach:spiritual", "experience:symbolic_reflection", "experience:structured_reflection", "format:one_to_one", "commitment:one_off"],
+        "attributes": { "outcome": "Explore a question through symbolic reflection", "format": "One-to-one", "approach": "Reflective and symbolic" }
       },
       {
         "id": "example_astrology",
@@ -211,7 +213,8 @@
         "planTitle": "Patterns & perspective",
         "plan": ["Pick a life area or repeating pattern to reflect on", "Explore the birth chart as an interpretive lens", "Note a new perspective and choices you may want to consider"],
         "capabilities": ["astrology_content", "symbolic_content"],
-        "tags": ["goal:curiosity", "goal:self_understanding", "goal:clarity", "need:reflective_exploration", "need:life_transition", "outcome:personal_insight", "outcome:new_perspective", "outcome:enjoyable_exploration", "approach:spiritual", "approach:reflective", "experience:symbolic_reflection", "format:one_to_one", "format:online", "commitment:one_off"]
+        "tags": ["goal:curiosity", "goal:self_understanding", "goal:clarity", "need:reflective_exploration", "need:life_transition", "outcome:personal_insight", "outcome:new_perspective", "outcome:enjoyable_exploration", "approach:spiritual", "approach:reflective", "experience:symbolic_reflection", "format:one_to_one", "format:online", "commitment:one_off"],
+        "attributes": { "outcome": "Explore patterns in a birth chart", "format": "Online", "approach": "Spiritual and symbolic" }
       }
     ]
   }

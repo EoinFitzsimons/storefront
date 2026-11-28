@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#315947">
+  <meta name="description" content="Learn about this sample merchant and the offers in its catalogue.">
+  <title>About the shop — Guided Commerce</title>
+  <link rel="stylesheet" href="/src/storefront.css">
+  <link rel="stylesheet" href="/src/about.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">○</span><span id="merchant-name">Sample shop</span></a>
+    <nav aria-label="Main navigation"><a id="shop-link" href="/">Shop</a><a href="/about.html" aria-current="page">About</a></nav>
+    <label class="tenant-picker" for="tenant-switcher"><span>Example</span><select id="tenant-switcher"><option value="oak-clay">Oak &amp; Clay</option><option value="spirit">Spirit</option></select></label>
+  </header>
+  <main class="about-page">
+    <section class="about-hero"><span class="eyebrow">ABOUT THE SHOP</span><h1 id="about-title">A small shop with room to explore.</h1><p id="about-copy"></p><a id="browse-link" class="button" href="/">Browse the offers <span aria-hidden="true">→</span></a></section>
+    <section class="about-facts"><h2>About this demonstration</h2><p>This site is a sample catalogue for the Guided Commerce browser extension. The products and descriptions are illustrative. Prices, stock, suitability, delivery and checkout are not connected to a live merchant.</p><p>Open the extension from the browser toolbar, choose <strong>Analyze this page</strong>, then visit the shop page and add it to the guide. The extension reads only pages you choose on this shop.</p></section>
+  </main>
+  <footer><a class="brand footer-brand" id="footer-shop-link" href="/"><span class="brand-mark" aria-hidden="true">○</span><span id="footer-merchant-name">Sample shop</span></a><span>Sample site for the Guided Commerce extension</span></footer>
+  <script src="/examples/storefronts/tenant-configs.js"></script>
+  <script src="/src/about.js"></script>
+</body>
+</html>

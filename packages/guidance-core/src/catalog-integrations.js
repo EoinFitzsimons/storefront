@@ -32,7 +32,7 @@
     }
     const base = baseUrl || (typeof document === "undefined" ? undefined : document.baseURI);
     if (!base) throw new Error("A base URL is required to load tenant configuration outside a browser");
-    const url = new URL(`config/tenants/${tenantId}.v1.json`, base);
+    const url = new URL(`examples/storefronts/${tenantId}/tenant.v1.json`, base);
     const config = await readJson(await fetchImpl(url), `Tenant configuration "${tenantId}"`);
     engine.validateConfiguration(config);
     if (config.tenant.id !== tenantId) throw new Error(`Tenant configuration ID does not match "${tenantId}"`);

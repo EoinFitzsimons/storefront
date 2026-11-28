@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guided Commerce</title>
+  <link rel="stylesheet" href="panel.css">
+  <link rel="stylesheet" href="panel-overrides.css">
+</head>
+<body>
+  <header class="panel-header">
+    <div class="brand-mark" aria-hidden="true">↗</div>
+    <div><p class="overline">A SHOPPING COMPANION</p><h1>Guided Commerce</h1></div>
+  </header>
+  <main>
+    <section class="intro-card">
+      <p class="intro-copy">Know what you want to do, but not what to choose? I can use details from pages you select to help narrow the options.</p>
+      <div class="privacy-line"><span aria-hidden="true">●</span> Page details stay in this panel. Nothing is uploaded.</div>
+    </section>
+    <section class="page-card" aria-labelledby="page-heading">
+      <div class="section-line"><h2 id="page-heading">Pages reviewed</h2><span id="page-count" class="count-pill">0</span></div>
+      <p id="page-help" class="muted">Start on a shop, collection, product or About page. Only this page is read when you ask.</p>
+      <div id="page-list" class="page-list" hidden></div>
+      <p id="current-tab" class="current-tab">Ready to inspect the current tab.</p>
+      <button id="analyze-button" class="primary-button" type="button">Analyze this page</button>
+      <p id="status" role="status" class="status"></p>
+    </section>
+    <section id="guide-section" class="guide-section" aria-live="polite" hidden>
+      <div class="section-line"><h2>Your guide</h2><button id="reset-button" class="text-button" type="button">Start over</button></div>
+      <p id="guide-context" class="muted"></p>
+      <div id="question-area"></div>
+      <div id="results-area"></div>
+    </section>
+    <section class="limits-card">
+      <strong>What this guide can verify</strong>
+      <p>Only details found on pages you chose, such as names, descriptions and listed prices. Hidden stock, suitability, delivery and checkout details remain unknown.</p>
+    </section>
+  </main>
+  <footer>Prototype · Your answers are held in memory until this panel closes.</footer>
+  <script src="lib/extract-page.js"></script>
+  <script src="lib/build-questions.js"></script>
+  <script src="lib/rank-products.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
