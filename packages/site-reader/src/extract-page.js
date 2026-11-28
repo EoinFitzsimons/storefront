@@ -10,6 +10,7 @@
     const page = {
       url: pageUrl,
       origin: location.origin,
+      siteName: findSiteName(),
       title: document.title || "Untitled page",
       description: document.querySelector('meta[name="description"]')?.content || "",
       headings: [...document.querySelectorAll("h1,h2,h3")].map((node) => clean(node.innerText)).filter(Boolean).slice(0, 20),
@@ -61,10 +62,10 @@
       for (const property of additional) {
         const key = clean(first(property?.name));
         const value = clean(first(property?.value));
-        if (key && value) properties[key] = value;
+        if (key && value) addProperty(properties, key, value);
       }
       const brand = clean(first(typeof data.brand === "object" ? data.brand.name : data.brand));
-      const priceValue = offers && first(offers.price);
+      const priceValue = offers ? first(offers.price) : undefined;
       const price = numeric(priceValue);
       return {
         name,
@@ -74,7 +75,7 @@
         attributes: properties,
         price,
         currency: price === null ? "" : clean(first(offers.priceCurrency)).toUpperCase(),
-        availability: clean(first(offers.availability)).split("/").pop(),
+        availability: offers ? clean(first(offers.availability)).split("/").pop() : "",
         url: safeProductUrl(first(data.url), sourceUrl),
         sourceUrl
       };
@@ -95,7 +96,7 @@
       for (const property of node.querySelectorAll('[itemprop="additionalProperty"]')) {
         const key = clean(property.querySelector('[itemprop="name"]')?.content || property.querySelector('[itemprop="name"]')?.innerText || "");
         const value = clean(property.querySelector('[itemprop="value"]')?.content || property.querySelector('[itemprop="value"]')?.innerText || "");
-        if (key && value) attributes[key] = value;
+        if (key && value) addProperty(attributes, key, value);
       }
       return { name, description, category, brand: "", attributes, price: numeric(read("price")), currency: clean(read("priceCurrency")).toUpperCase(), availability: clean(read("availability")).split("/").pop(), url: safeProductUrl(url, sourceUrl), sourceUrl };
     }
@@ -110,6 +111,35 @@
         output.push(product);
       }
       return output;
+    }
+
+    function findSiteName() {
+      const openGraphName = document.querySelector('meta[property="og:site_name"]')?.content;
+      if (openGraphName) return clean(openGraphName);
+      const visibleName = clean(document.querySelector("header .brand, header [itemprop='name']")?.innerText || "");
+      if (visibleName) return visibleName;
+      for (const script of document.querySelectorAll('script[type="application/ld+json"]')) {
+        try {
+          const data = JSON.parse(script.textContent || "null");
+          const nodes = Array.isArray(data) ? data : [data];
+          for (const node of nodes) {
+            if (node && typeof node === "object" && (types(node).some((type) => ["organization", "store", "localbusiness", "itemlist"].includes(type))) && node.name) {
+              return clean(first(node.name));
+            }
+          }
+        } catch {}
+      }
+      return "";
+    }
+
+    function addProperty(target, key, value) {
+      const current = target[key];
+      if (current === undefined) target[key] = value;
+      else {
+        const values = Array.isArray(current) ? current : [current];
+        if (!values.includes(value)) values.push(value);
+        target[key] = values;
+      }
     }
 
     function safeProductUrl(candidate, fallback) {

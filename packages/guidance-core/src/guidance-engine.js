@@ -38,6 +38,9 @@
         assert(isRecord(product.attributes), `${itemPath}.attributes must be an object`);
         assert(Object.entries(product.attributes).every(([key, value]) => key.trim() && typeof value === "string" && value.trim()), `${itemPath}.attributes must contain non-empty text`);
       }
+      if (product.startingPoints !== undefined) {
+        assert(Array.isArray(product.startingPoints) && product.startingPoints.length > 0 && product.startingPoints.every((point) => typeof point === "string" && point.trim()), `${itemPath}.startingPoints must contain text choices`);
+      }
       if (product.checkoutUrl !== undefined) {
         let url;
         try {

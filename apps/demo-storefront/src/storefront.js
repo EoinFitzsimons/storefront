@@ -35,7 +35,7 @@
     : "A few example experiences from the Spirit catalogue. Choose a page and let the extension help you explore.");
   setText("#about-title", tenantId === "oak-clay" ? "A studio for making and finding." : "A space for thoughtful experiences.");
   setText("#about-copy", tenantId === "oak-clay"
-    ? "Oak & Clay is an example pottery studio catalogue, with a beginner workshop, a handmade piece and a flexible gift."
+    ? "Oak & Clay is an example pottery studio catalogue with ten sample offers across workshops, handmade homewares, and flexible gifts. The guide starts with what someone hopes to do, then narrows to useful details across overlapping paths."
     : "Spirit is an example wellbeing catalogue. It shows how a guide might work with a different kind of offer and customer decision.");
 
   const products = config.catalog.products;
@@ -97,6 +97,9 @@
     const properties = [{ "@type": "PropertyValue", name: "Offer type", value: category }];
     for (const [name, value] of Object.entries(product.attributes || {})) {
       properties.push({ "@type": "PropertyValue", name: attributeLabel(name), value });
+    }
+    for (const startingPoint of product.startingPoints || []) {
+      properties.push({ "@type": "PropertyValue", name: "Starting point", value: startingPoint });
     }
     return {
       "@type": "Product",

@@ -12,7 +12,7 @@
       let excluded = false;
       for (const question of questions || []) {
         const answer = answers?.[question.key];
-        if (answer === undefined || answer === null) continue;
+        if (answer === undefined || answer === null || answer === "__any__") continue;
         if (question.key === "category") {
           if (normalize(product.category || attribute(product, "Offer type")) === answer) {
             score += 4;
@@ -21,9 +21,10 @@
         } else if (question.key.startsWith("attribute:")) {
           const name = question.key.slice("attribute:".length);
           const match = Object.entries(product.attributes || {}).find(([key]) => key.toLowerCase() === name);
-          if (normalize(match?.[1]) === answer) {
+          const values = Array.isArray(match?.[1]) ? match[1] : [match?.[1]];
+          if (values.some((value) => normalize(value) === answer)) {
             score += 3;
-            reasons.push(`${match[0]}: ${match[1]}`);
+            reasons.push(`${match[0]}: ${values.find((value) => normalize(value) === answer)}`);
           } else excluded = true;
         } else if (question.key === "price" && typeof answer === "object") {
           if ((answer.max === undefined || product.price <= answer.max) && (answer.min === undefined || product.price > answer.min)) {

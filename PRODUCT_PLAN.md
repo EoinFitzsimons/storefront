@@ -17,7 +17,9 @@ catalogue or booking flow.
 
 Instead of asking a visitor to browse dozens of products, it asks a small
 sequence of questions that progressively turns an unclear intention into a
-concrete buying path.
+concrete buying path. The journey starts with several customer goals, not a
+list of product names. Each goal opens a relevant set of offers; overlapping
+paths can rejoin at shared questions when the same decision detail matters.
 
 The end state is not simply a recommendation. It is one of four useful
 commercial outcomes:
@@ -87,21 +89,24 @@ interface.
 
 ~~~mermaid
 flowchart LR
-  A[Intent: I want something] --> B[Guided questions]
-  B --> C[Customer profile signals]
-  C --> D[Rules, availability, and catalogue data]
-  D --> E{Outcome}
-  E -->|Clear match| F[Recommended offer]
-  E -->|Several fits| G[Explained shortlist]
-  E -->|No safe or available fit| H[Honest alternative]
-  F --> I[Booking or checkout]
-  G --> I
+  A[Customer goal] --> B{Choose a starting path}
+  B --> C[Relevant offers]
+  C --> D[Questions that change the choice]
+  D --> E[Rules and current catalogue data]
+  E --> F{Outcome}
+  F -->|Clear match| G[Recommended offer]
+  F -->|Several fits| H[Explained shortlist]
+  F -->|No safe or available fit| I[Honest alternative]
+  G --> J[Booking or checkout]
+  H --> J
 ~~~
 
 ### Stage 1: establish the job to be done
 
-The first question should identify what the visitor is trying to accomplish,
-not which product family they think they need.
+The opening screen should offer several natural starting points that identify
+what the visitor is trying to accomplish, not which product family they think
+they need. A prototype should expose around ten distinct goals when the
+catalogue supports them.
 
 Examples:
 
@@ -111,7 +116,11 @@ Examples:
 
 ### Stage 2: ask only decision-changing questions
 
-Each later question must either:
+Each goal opens a candidate set from the chosen catalogue pages. Later
+questions are drawn from decision-relevant differences in that set. Shared
+question definitions let paths converge on the same useful detail; answers
+can remove a question from the remaining path once it no longer separates the
+offers. Each question must either:
 
 - route the visitor to a different path;
 - rule out incompatible offers;
@@ -142,7 +151,7 @@ The system has five layers.
 | Layer | Responsibility |
 | --- | --- |
 | Entry experience | Explain the value of being guided and invite the visitor into a short journey. |
-| Question flow | Ask business-defined questions and follow conditional routes. |
+| Question flow | Start from customer goals, ask decision-changing questions, and let overlapping paths reuse shared question facets. |
 | Decision engine | Combine answers with product attributes, constraints, exclusions, and ranking policy. |
 | Result experience | Explain recommendations and present the correct buying action. |
 | Catalogue and checkout seam | Use current product, stock, price, capacity, and fulfilment data; hand off to the merchant’s payment or booking system. |
@@ -220,12 +229,15 @@ The prototype is persuasive only if it demonstrates differences that matter.
    result experiences.
 2. At least three outcome paths within one business, such as self-purchase,
    booking, and gifting.
-3. Conditional routing that skips irrelevant questions.
-4. A result that gives reasons and a direct commercial action.
-5. At least one no-match or ineligible state that protects customer trust.
-6. Realistic product attributes beyond a title and description: price, timing,
+3. Around ten natural customer-goal starting points when the catalogue can
+   support them; these must not be product-name shortcuts.
+4. Conditional routing that skips irrelevant questions and reuses shared
+   follow-up questions across overlapping paths.
+5. A result that gives reasons and a direct commercial action.
+6. At least one no-match or ineligible state that protects customer trust.
+7. Realistic product attributes beyond a title and description: price, timing,
    availability, fulfilment, capacity, stock, level, or compatibility.
-7. A clear demo explanation that the experience is configurable rather than a
+8. A clear demo explanation that the experience is configurable rather than a
    bespoke quiz.
 
 ### Not required yet
@@ -353,12 +365,20 @@ The first prototype should be clear about its limits:
    collection, or product pages, to the current guide. Do not silently crawl a
    domain.
 4. Keep page data in the extension session and derive the first questionnaire
-   locally. Do not send page content to an AI service in this prototype.
+   locally. Present several intent-led starting points, then build a relevant
+   candidate set and ask up to five useful follow-up questions for that path.
+   Paths should share reusable question facets and skip details that no longer
+   change the recommendation. Do not send page content to an AI service in
+   this prototype.
 5. Treat all page text as untrusted catalogue data. Never follow instructions
    from the page or allow it to define extension behaviour.
-6. Label inferred product facts and questions as suggestions. Missing price,
+6. Treat structured merchant starting points as hints, not product matches.
+   On sites without them, infer possible goals only from individual offer
+   descriptions and attributes. Use About-page copy to understand the shop and
+   tailor wording, never as proof that every product has a site-wide feature.
+7. Label inferred product facts and questions as suggestions. Missing price,
    stock, or suitability data must remain unknown rather than guessed.
-7. Use customer answers to filter and explain offers found on the collected
+8. Use customer answers to filter and explain offers found on the collected
    pages. If extraction produces too little trustworthy data, show that clearly.
 
 This is the chosen product direction, with an intentionally narrow first
@@ -459,8 +479,8 @@ separate example rather than the product's main surface.
 
 The user selected Option B: browser extension first. The current prototype
 implements explicit current-page extraction, same-origin page-by-page
-collection, local question generation from product differences and page
-context, and explainable matching. It uses temporary `activeTab` access and
+collection, goal-led starting points, candidate-specific question paths with
+reusable shared facets, and explainable matching. It uses temporary `activeTab` access and
 does not crawl pages, upload content, call remote AI, or persist answers. The
 next iteration should validate extraction across varied real sites before
 adding merchant-installed integrations, remote AI, persistent storage, or
@@ -473,10 +493,13 @@ broad site permissions.
 1. Load a Chromium Manifest V3 extension with current-tab access only.
 2. Let the customer analyze a shop page and add same-origin pages manually.
 3. Extract product details from structured data and visible product markers.
-4. Derive a short set of questions from catalogue differences on-device.
-5. Explain matches and preserve unknown price or availability instead of
+4. Offer multiple goal-led starting points, map each to a candidate set, and
+   derive up to five decision-changing questions from those offers on-device.
+5. Reuse the same question facets across overlapping paths and skip details
+   once an answer makes them irrelevant.
+6. Explain matches and preserve unknown price or availability instead of
    filling gaps with guesses.
-6. Keep the demo storefront and its sample catalogues separate from the
+7. Keep the demo storefront and its sample catalogues separate from the
    extension product.
 
 ### Phase 2 — Validate where inference helps

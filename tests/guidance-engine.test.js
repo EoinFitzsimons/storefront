@@ -95,7 +95,9 @@ test("recommendations are capped by the tenant policy", () => {
 });
 
 test("recommendations use the selected tenant's product data and policies", () => {
-  const result = engine.evaluate(oakClay, { interest: "wheel", format: "hands_on", price: "accessible" });
+  const result = engine.evaluate(oakClay, { interest: "workshop", format: "hands_on", price: "accessible" });
   assert.equal(result.status, "recommended");
-  assert.equal(result.recommendations[0].id, "wheel-workshop");
+  assert.equal(result.recommendations.length, 2);
+  const catalog = new Map(oakClay.catalog.products.map((product) => [product.id, product]));
+  assert.ok(result.recommendations.every(({ id }) => catalog.get(id)?.capabilities.includes("workshop")));
 });

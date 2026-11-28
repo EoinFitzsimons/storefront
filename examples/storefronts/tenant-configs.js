@@ -2,7 +2,7 @@
 window.EmbeddedTenantConfigs = Object.freeze({
   "oak-clay": {
     "schemaVersion": 1,
-    "revision": "1.1.0",
+    "revision": "1.2.0",
     "tenant": {
       "id": "oak-clay",
       "name": "Oak & Clay"
@@ -32,8 +32,8 @@ window.EmbeddedTenantConfigs = Object.freeze({
         "required": true,
         "options": [
           {
-            "id": "wheel",
-            "label": "A pottery wheel workshop",
+            "id": "workshop",
+            "label": "A pottery workshop",
             "tags": [
               "interest:workshop"
             ],
@@ -171,8 +171,21 @@ window.EmbeddedTenantConfigs = Object.freeze({
           "attributes": {
             "outcome": "Learn a hands-on skill",
             "format": "In the studio",
-            "price band": "Lower-cost"
-          }
+            "price band": "Lower-cost",
+            "making style": "Wheel throwing",
+            "experience type": "Guided skill session",
+            "pace": "Focused practice",
+            "company": "Book on your own or with a friend",
+            "gift approach": "Choose a workshop session"
+          },
+          "startingPoints": [
+            "I want to make something by hand",
+            "I want to learn a new skill",
+            "I want a creative activity with someone",
+            "I’m planning an experience instead of buying an object",
+            "I want to give someone a pottery experience",
+            "I’m not sure where to begin"
+          ]
         },
         {
           "id": "ceramic-vase",
@@ -196,8 +209,16 @@ window.EmbeddedTenantConfigs = Object.freeze({
           "attributes": {
             "outcome": "Find a finished piece for your home",
             "format": "Ready-made pottery",
-            "price band": "Considered"
-          }
+            "price band": "Considered",
+            "use": "Display flowers",
+            "piece type": "Vase",
+            "gift approach": "Give a handmade object"
+          },
+          "startingPoints": [
+            "I want a handmade piece for my home",
+            "I need a thoughtful gift",
+            "I’m not sure where to begin"
+          ]
         },
         {
           "id": "gift-card",
@@ -219,8 +240,269 @@ window.EmbeddedTenantConfigs = Object.freeze({
           "attributes": {
             "outcome": "Give someone a flexible choice",
             "format": "Gift card",
-            "price band": "Lower-cost"
-          }
+            "price band": "Lower-cost",
+            "gift approach": "Let them choose for themselves"
+          },
+          "startingPoints": [
+            "I need a thoughtful gift",
+            "I want to let them choose for themselves",
+            "I’m not sure what they would like yet",
+            "I’m not sure where to begin"
+          ]
+        },
+        {
+          "id": "hand-building-workshop",
+          "name": "Hand-building studio session",
+          "description": "A relaxed beginner workshop using simple hand-building techniques to shape a small ceramic piece.",
+          "planTitle": "Shape something by hand",
+          "plan": [
+            "Choose a simple form to make",
+            "Learn a few hand-building techniques",
+            "Shape a small piece with studio guidance"
+          ],
+          "capabilities": [
+            "workshop",
+            "in_person"
+          ],
+          "tags": [
+            "interest:workshop",
+            "format:in_person",
+            "price:accessible",
+            "skill:beginner"
+          ],
+          "attributes": {
+            "outcome": "Learn a hands-on skill",
+            "format": "In the studio",
+            "price band": "Lower-cost",
+            "making style": "Hand-building",
+            "experience type": "Relaxed creative session",
+            "pace": "Gentle and exploratory",
+            "company": "Book on your own or with a friend",
+            "gift approach": "Choose a workshop session"
+          },
+          "startingPoints": [
+            "I want to make something by hand",
+            "I want to learn a new skill",
+            "I want a creative activity with someone",
+            "I’m planning an experience instead of buying an object",
+            "I want to give someone a pottery experience",
+            "I’m not sure where to begin"
+          ]
+        },
+        {
+          "id": "ceramic-planter",
+          "name": "Hand-built ceramic planter",
+          "description": "A small-batch planter made in the studio for a favourite plant or a bright windowsill.",
+          "planTitle": "Find a place for green",
+          "plan": [
+            "Choose a size for your plant",
+            "Pick a glaze that suits your room",
+            "Arrange collection or delivery with the studio"
+          ],
+          "capabilities": [
+            "pottery",
+            "ready_made",
+            "homewares"
+          ],
+          "tags": [
+            "interest:pottery",
+            "format:ready_made",
+            "price:considered",
+            "use:plants"
+          ],
+          "attributes": {
+            "outcome": "Find a finished piece for your home",
+            "format": "Ready-made pottery",
+            "price band": "Considered",
+            "use": "Grow a favourite plant",
+            "piece type": "Planter",
+            "gift approach": "Give a handmade object"
+          },
+          "startingPoints": [
+            "I want a handmade piece for my home",
+            "I need a thoughtful gift",
+            "I’m not sure where to begin"
+          ]
+        },
+        {
+          "id": "studio-workshop-voucher",
+          "name": "Studio workshop gift voucher",
+          "description": "A gift voucher for a pottery workshop, with the recipient choosing a session that suits them.",
+          "planTitle": "Give them an experience",
+          "plan": [
+            "Choose a voucher amount",
+            "Add a personal note",
+            "Let them select a workshop date"
+          ],
+          "capabilities": [
+            "gift",
+            "workshop",
+            "voucher"
+          ],
+          "tags": [
+            "interest:gift",
+            "interest:workshop",
+            "price:accessible",
+            "format:flexible"
+          ],
+          "attributes": {
+            "outcome": "Give someone a pottery experience",
+            "format": "Flexible workshop voucher",
+            "price band": "Lower-cost",
+            "gift approach": "Let them choose a session"
+          },
+          "startingPoints": [
+            "I need a thoughtful gift",
+            "I’m not sure what they would like yet",
+            "I want to give someone a pottery experience",
+            "I want to let them choose for themselves",
+            "I’m not sure where to begin"
+          ]
+        },
+        {
+          "id": "studio-taster-for-two",
+          "name": "Studio taster for two",
+          "description": "A relaxed pottery taster for two people to try simple clay techniques together, with no experience needed.",
+          "planTitle": "Make a little time together",
+          "plan": [
+            "Choose a session for two",
+            "Try a few simple ways to shape clay",
+            "Take home a small piece after the studio finishes it"
+          ],
+          "capabilities": [
+            "workshop",
+            "in_person",
+            "shared_experience"
+          ],
+          "tags": [
+            "interest:workshop",
+            "format:in_person",
+            "price:accessible"
+          ],
+          "attributes": {
+            "outcome": "Share a creative experience",
+            "format": "Small-group studio session",
+            "price band": "Mid-range",
+            "making style": "Try a mix of clay techniques",
+            "experience type": "Social studio taster",
+            "pace": "Relaxed and sociable",
+            "company": "Share with a friend",
+            "gift approach": "Choose a workshop session"
+          },
+          "startingPoints": [
+            "I want to make something by hand",
+            "I want a creative activity with someone",
+            "I’m planning an experience instead of buying an object",
+            "I need a thoughtful gift",
+            "I want to give someone a pottery experience",
+            "I’m not sure where to begin"
+          ]
+        },
+        {
+          "id": "glaze-and-finish-workshop",
+          "name": "Glaze and finish workshop",
+          "description": "Choose glazes and decorate a prepared ceramic piece in a guided studio session.",
+          "planTitle": "Add your finishing touch",
+          "plan": [
+            "Choose a prepared ceramic form",
+            "Explore a small palette of studio glazes",
+            "Decorate your piece with guidance"
+          ],
+          "capabilities": [
+            "workshop",
+            "in_person",
+            "creative_skill"
+          ],
+          "tags": [
+            "interest:workshop",
+            "format:in_person",
+            "price:accessible"
+          ],
+          "attributes": {
+            "outcome": "Personalize a finished piece",
+            "format": "In the studio",
+            "price band": "Mid-range",
+            "making style": "Glaze and decorate",
+            "experience type": "Guided finishing session",
+            "pace": "Focused creative time",
+            "company": "Come on your own or with a friend",
+            "gift approach": "Choose a workshop session"
+          },
+          "startingPoints": [
+            "I want to make something by hand",
+            "I want to learn a new skill",
+            "I’m planning an experience instead of buying an object",
+            "I want to give someone a pottery experience",
+            "I’m not sure where to begin"
+          ]
+        },
+        {
+          "id": "hand-thrown-breakfast-bowl",
+          "name": "Hand-thrown breakfast bowl",
+          "description": "A handmade stoneware bowl for breakfast, snacks or the small rituals of an everyday table.",
+          "planTitle": "Find an everyday favourite",
+          "plan": [
+            "Compare the available glazes",
+            "Choose a bowl for your table",
+            "Arrange collection or delivery with the studio"
+          ],
+          "capabilities": [
+            "pottery",
+            "ready_made",
+            "homewares"
+          ],
+          "tags": [
+            "interest:pottery",
+            "format:ready_made",
+            "price:considered"
+          ],
+          "attributes": {
+            "outcome": "Find a finished piece for your home",
+            "format": "Ready-made pottery",
+            "price band": "Considered",
+            "use": "Serve breakfast or small dishes",
+            "piece type": "Small serving piece",
+            "gift approach": "Give a handmade object"
+          },
+          "startingPoints": [
+            "I want a handmade piece for my home",
+            "I need a thoughtful gift",
+            "I’m not sure where to begin"
+          ]
+        },
+        {
+          "id": "stoneware-everyday-mug",
+          "name": "Stoneware everyday mug",
+          "description": "A small-batch stoneware mug with a comfortable handle for daily tea or coffee.",
+          "planTitle": "Choose a useful handmade piece",
+          "plan": [
+            "Look at the studio glazes",
+            "Choose a mug for your daily routine",
+            "Arrange collection or delivery with the studio"
+          ],
+          "capabilities": [
+            "pottery",
+            "ready_made",
+            "homewares"
+          ],
+          "tags": [
+            "interest:pottery",
+            "format:ready_made",
+            "price:considered"
+          ],
+          "attributes": {
+            "outcome": "Find a finished piece for your home",
+            "format": "Ready-made pottery",
+            "price band": "Considered",
+            "use": "Enjoy an everyday drink",
+            "piece type": "Everyday mug",
+            "gift approach": "Give a handmade object"
+          },
+          "startingPoints": [
+            "I want a handmade piece for my home",
+            "I need a thoughtful gift",
+            "I’m not sure where to begin"
+          ]
         }
       ]
     }
